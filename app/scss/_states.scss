@@ -13,6 +13,18 @@
   }
 }
 
+.user-nav__link {
+  &:hover .user-nav__num {
+    color: $accent;
+    background-color: $white;
+  }
+  &__active {
+    background-color: $pink;
+    box-shadow: none;
+    border: none;
+  }
+}
+
 .button {
   background-color: $accent;
   color: $white;
@@ -130,7 +142,7 @@
     }
   }
   &:active {
-    background-color: #fff2ed;
+    background-color: $pink;
     box-shadow: none;
     path {
       stroke: $secondaty;
@@ -144,7 +156,7 @@
 .contacts__social-link {
   transition: box-shadow 0.5s ease, color 0.5s, background-color 0.5s ease;
   &:focus {
-    background-color: #fff2ed;
+    background-color: $pink;
     box-shadow: 0 0 0 2px rgba(255, 104, 56, 0.7);
     path {
       fill: black;
@@ -157,7 +169,7 @@
     }
   }
   &:active {
-    background-color: #fff2ed;
+    background-color: $pink;
     box-shadow: none;
     path {
       fill: $accent;
