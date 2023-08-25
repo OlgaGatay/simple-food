@@ -1,0 +1,42 @@
+$primary: #31352b;
+$secondaty: #363853;
+$accent: #ff6838;
+$silver-200: #ececec;
+$silver-100: #f9faff;
+$gray: #c2c2c2;
+$white: #fff;
+
+%rubik-300 {
+  font-family: "Rubik-Light", sans-serif;
+  font-weight: 300;
+}
+
+%rubik-400 {
+  font-family: "Rubik-Regular", sans-serif;
+  font-weight: 400;
+}
+
+%rubik-500 {
+  font-family: "Rubik-Medium", sans-serif;
+  font-weight: 500;
+}
+
+%rubik-italic {
+  font-family: "Rubik-Italic", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+%bc-img {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+%link-underline {
+  color: $secondaty;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: $secondaty;
+  text-underline-offset: 2px;
+}
