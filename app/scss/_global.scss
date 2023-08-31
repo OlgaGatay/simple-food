@@ -13,6 +13,11 @@ body {
   flex-direction: column;
 }
 
+.wrapper {
+  // overflow-x: hidden;
+  padding-top: 101px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -37,7 +42,7 @@ body {
 }
 
 .section {
-  margin-bottom: 120px;
+  padding: 60px 0;
 }
 
 .title {
@@ -47,4 +52,80 @@ body {
   @extend %rubik-500;
   font-size: 36px;
   line-height: 130%;
+}
+
+.logo {
+  border-radius: 5px;
+  transition: box-shadow 0.5s ease, opacity 0.1s;
+  &:focus {
+    box-shadow: 0 0 0 2px $shadow;
+  }
+  &:hover {
+    opacity: 0.7;
+  }
+  &:active {
+    opacity: 0.5;
+    box-shadow: none;
+  }
+}
+
+.button {
+  background-color: $accent;
+  color: $white;
+  border-radius: 6px;
+  transition: box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s;
+  &:focus {
+    color: $accent;
+    background-color: $orange-01;
+    box-shadow: 0 0 0 2px $accent-07;
+  }
+  &:hover {
+    color: $accent;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 2px $shadow, 0 5px 12px 0 $accent-02;
+  }
+  &:active {
+    background-color: $orange-01;
+    box-shadow: none;
+  }
+}
+
+.animation-link {
+  border-radius: 5px;
+  transition: box-shadow 0.5s ease, text-shadow 0.5s ease, color 0.5s;
+  &:focus {
+    box-shadow: 0 0 0 2px $shadow;
+  }
+  &:hover {
+    color: $accent;
+  }
+  &:active {
+    color: $primary;
+    text-shadow: 2px 2px 5px $primary-05;
+    box-shadow: none;
+  }
+}
+
+.animation-icon {
+  transition: box-shadow 0.5s ease, color 0.5s, background-color 0.5s ease;
+  &:focus {
+    background: $orange-01;
+    box-shadow: 0 0 0 2px $shadow;
+    path {
+      fill: black;
+    }
+  }
+  &:hover {
+    background-color: $orange;
+    path {
+      fill: $white;
+    }
+  }
+  &:active {
+    background-color: $pink;
+    box-shadow: none;
+    path {
+      fill: $accent;
+    }
+  }
 }

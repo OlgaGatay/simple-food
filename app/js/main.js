@@ -7,10 +7,14 @@ $(function () {
     }
   });
 
-  $(".categories__filter-btn").on("click", function () {
-    $(".categories__filter-btn").removeClass("categories__filter-btn--active");
-    $(this).addClass("categories__filter-btn--active");
+  $(".testimonials__slider").slick({
+    dots: true,
+  });
+
+  $(".slick-arrow").on("click", function () {
+    $(".slick-arrow").removeClass("slick-arrow--active");
+    $(this).addClass("slick-arrow--active");
   });
 });
 
-var mixer = mixitup(".categories__items");
+var mixer = mixitup(".categories-popular__items");

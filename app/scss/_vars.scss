@@ -6,24 +6,32 @@ $silver-100: #f9faff;
 $gray: #c2c2c2;
 $white: #fff;
 $pink: #fff2ed;
+$shadow: rgba($accent, 0.7);
+$orange: #ff7a50;
+$orange-01: rgba($orange, 0.1);
+$orange-07: rgba($orange, 0.7);
+$accent-02: rgba($accent, 0.2);
+$accent-05: rgba($accent, 0.5);
+$accent-07: rgba($accent, 0.7);
+$primary-05: rgba($primary, 0.5);
 
 %rubik-300 {
-  font-family: "Rubik-Light", sans-serif;
+  font-family: "Rubik", sans-serif;
   font-weight: 300;
 }
 
 %rubik-400 {
-  font-family: "Rubik-Regular", sans-serif;
+  font-family: "Rubik", sans-serif;
   font-weight: 400;
 }
 
 %rubik-500 {
-  font-family: "Rubik-Medium", sans-serif;
+  font-family: "Rubik", sans-serif;
   font-weight: 500;
 }
 
 %rubik-italic {
-  font-family: "Rubik-Italic", sans-serif;
+  font-family: "Rubik", sans-serif;
   font-weight: 400;
   font-style: italic;
 }
@@ -40,4 +48,10 @@ $pink: #fff2ed;
   text-decoration-thickness: 1px;
   text-decoration-color: $secondaty;
   text-underline-offset: 2px;
+}
+
+%flex-col-align {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
