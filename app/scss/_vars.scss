@@ -1,5 +1,5 @@
 $primary: #31352b;
-$secondaty: #363853;
+$secondary: #363853;
 $accent: #ff6838;
 $silver-200: #ececec;
 $silver-100: #f9faff;
@@ -12,8 +12,13 @@ $orange-01: rgba($orange, 0.1);
 $orange-07: rgba($orange, 0.7);
 $accent-02: rgba($accent, 0.2);
 $accent-05: rgba($accent, 0.5);
-$accent-07: rgba($accent, 0.7);
+$accent-07: rgba(255, 104, 56, 0.7);
 $primary-05: rgba($primary, 0.5);
+
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
 
 %rubik-300 {
   font-family: "Rubik", sans-serif;
@@ -43,15 +48,10 @@ $primary-05: rgba($primary, 0.5);
 }
 
 %link-underline {
-  color: $secondaty;
+  color: $secondary;
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: $secondaty;
+  text-decoration-color: rgba(54, 56, 83, 1);
   text-underline-offset: 2px;
-}
-
-%flex-col-align {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  transition: text-decoration-color 1s;
 }

@@ -17,3 +17,46 @@
     -webkit-box-orient: vertical;
   }
 }
+
+@mixin burger($burgerWidth, $burgerHeight, $burgerLineHeight, $burgerColor) {
+  width: $burgerWidth;
+  height: $burgerHeight;
+  color: $burgerColor;
+  position: relative;
+
+  &__line {
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: $burgerLineHeight;
+    background-color: currentColor;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    width: 30px;
+    height: $burgerLineHeight;
+    background-color: currentColor;
+    // transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+  }
+
+  &::before {
+    top: 10px;
+  }
+
+  &::after {
+    bottom: 10px;
+  }
+}
+
+@mixin mq($width) {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}

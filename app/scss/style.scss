@@ -11,11 +11,44 @@
   top: 0;
   right: 0;
   left: 0;
+  width: 100%;
   z-index: 100;
   transition: padding 0.5s linear, background-color 0.3s linear;
 
   &__logo {
+    margin-left: 5px;
     margin-right: auto;
+  }
+
+  &__menu {
+    margin-right: 62px;
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @include mq($lg) {
+    padding: 50px 0;
+  }
+
+  @include mq($md) {
+    padding: 40px 0;
+  }
+
+  @include mq($sm) {
+    padding: 14px 0;
+
+    &__logo {
+      margin-left: 0;
+    }
+
+    &__logo img {
+      width: 115px;
+      height: 23px;
+    }
   }
 }
 
@@ -24,30 +57,129 @@
   background-color: $silver-200;
 }
 
-.header-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.mob-menu {
+  position: fixed;
+  height: 100vh;
+  display: block;
+  width: 80%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 200;
+  background-color: #fff;
+  overflow-y: auto;
+  transform: translateX(-200%);
+  transition: transform 1s;
+
+  &.menu--active {
+    transform: translateX(0);
+  }
+
+  &__top {
+    padding: 23px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & .menu {
+    display: block;
+    padding: 25px 15px;
+    border: 1px #eeeff3;
+    border-style: solid none;
+
+    &__item {
+      font-size: 18px;
+
+      line-height: 120%;
+    }
+
+    &__item:not(:last-child) {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+  }
+
+  .close {
+    width: 44px;
+    height: 44px;
+    position: relative;
+  }
+
+  .close:before,
+  .close:after {
+    content: " ";
+    position: absolute;
+    width: 2px;
+    height: 25px;
+    left: 50%;
+    bottom: 10px;
+    background-color: $secondary;
+  }
+
+  .close:before {
+    transform: rotate(45deg);
+  }
+
+  .close:after {
+    transform: rotate(-45deg);
+  }
+
+  & .contacts {
+    padding: 15px 0;
+  }
+
+  .address {
+    padding-left: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.logo {
+  border-radius: 5px;
+  transition: box-shadow 0.5s ease, opacity 0.1s;
+
+  &:focus {
+    box-shadow: 0 0 0 2px $shadow;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.5;
+    box-shadow: none;
+  }
+
+  &__img {
+    width: 200px;
+    height: 39px;
+    object-fit: cover;
+  }
 }
 
 .menu {
   display: flex;
 
   &__item:not(:last-child) {
-    margin-right: 45px;
+    margin-right: 40px;
   }
 
   &__link {
     font-size: 18px;
+    line-height: 21px;
 
     &--active {
       color: $accent;
     }
   }
-}
 
-.header__menu {
-  margin-right: 50px;
+  @include mq($md) {
+    & {
+      display: none;
+    }
+  }
 }
 
 .user-nav {
@@ -55,8 +187,8 @@
   align-items: center;
   justify-content: space-between;
 
-  &__item:first-child {
-    margin-right: 18px;
+  &__item:not(:last-child) {
+    margin-right: 9px;
   }
 
   &__btn {
@@ -67,15 +199,35 @@
     height: 44px;
     border-radius: 5px;
 
+    & svg {
+      stroke: $secondary;
+      stroke-width: 1.5;
+      fill: none;
+      width: 21px;
+      height: 22px;
+      transition: stroke 0.5s;
+    }
+
+    &:hover {
+      svg {
+        stroke: $white;
+      }
+    }
+
+    &:active {
+      svg {
+        stroke: $secondary;
+      }
+    }
+
     &:hover .user-nav__num {
       color: $accent;
       background-color: $white;
     }
 
-    &__active {
-      background-color: $pink;
-      box-shadow: none;
-      border: none;
+    &:active .user-nav__num {
+      color: $white;
+      background-color: $accent;
     }
   }
 
@@ -94,9 +246,30 @@
     color: $white;
     background-color: $accent;
   }
+
+  @include mq($md) {
+    margin-right: 30px;
+  }
+
+  @include mq($sm) {
+    margin-right: 13px;
+  }
+}
+
+.burger {
+  @include burger(44px, 44px, 2px, $secondary);
+  display: none;
+
+  @include mq($md) {
+    & {
+      display: block;
+    }
+  }
 }
 
 .hero {
+  padding-bottom: 60px;
+
   &__inner {
     display: flex;
     justify-content: space-between;
@@ -114,15 +287,17 @@
     letter-spacing: 0.18px;
     @extend %rubik-500;
     text-transform: uppercase;
-    color: $secondaty;
+    color: $secondary;
 
     &--orange {
+      display: block;
       color: $accent;
     }
   }
 
   &__text {
     line-height: 150%;
+    @include line-clamp(3);
   }
 
   &__content > *:not(:last-child) {
@@ -130,12 +305,10 @@
   }
 
   &__img {
-    height: 660px;
-    max-width: 560px;
-    width: 100%;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    width: 47.86%;
+    height: 0;
+    padding-top: 56.19%;
+    @extend %bc-img;
   }
 
   &__button {
@@ -148,14 +321,85 @@
   }
 
   &__link {
-    color: $secondaty;
+    color: $secondary;
     @extend %link-underline;
 
     &:focus,
     &:hover,
     &:active {
-      text-decoration: none;
+      text-decoration: underline 1px rgba(54, 56, 83, 0);
     }
+  }
+
+  @include mq($lg) {
+    padding-bottom: 45px;
+
+    &__content {
+      max-width: 400px;
+    }
+
+    &__title {
+      font-size: 55px;
+    }
+
+    &__text {
+      font-size: 18px;
+    }
+
+    &__button {
+      font-size: 16px;
+    }
+
+    &__link {
+      font-size: 16px;
+    }
+  }
+
+  @include mq($md) {
+    padding-bottom: 30px;
+
+    &__content {
+      max-width: 290px;
+    }
+
+    &__title {
+      font-size: 40px;
+    }
+
+    &__text {
+      font-size: 16px;
+    }
+
+    &__button {
+      font-size: 14px;
+    }
+  }
+
+  @include mq($sm) {
+    padding-bottom: 20px;
+
+    &__content {
+      max-width: 100%;
+      padding: 25px 0;
+    }
+
+    &__inner {
+      position: relative;
+    }
+
+    &__img {
+      position: absolute;
+      opacity: 0.2;
+      right: 0;
+      width: 80%;
+      height: 100%;
+      background-position: top center;
+    }
+  }
+
+  &__button {
+    font-size: 14px;
+    padding: 8px 24px;
   }
 }
 
@@ -163,12 +407,14 @@
   text-align: center;
 
   &__title {
-    margin-bottom: 60px;
+    margin-bottom: 45px;
   }
 
   &__list {
     display: flex;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding: 15px 0;
   }
 
   &__element:not(:last-child) {
@@ -176,15 +422,22 @@
   }
 
   &__btn {
+    line-height: 130%;
     padding: 13px 32px;
+    white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 0 0 1px $silver-200;
     @extend %bc-img;
+    color: $secondary;
     background-color: $white;
-    transition: box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s;
     border-radius: 5px;
+    transition: box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s;
+
+    & svg {
+      transition: fill 0.5s;
+    }
 
     &:focus {
       box-shadow: 0 0 0 2px $shadow;
@@ -194,27 +447,19 @@
       background: $orange-01;
       box-shadow: 0 0 0 2px $shadow;
       color: $accent;
-    }
 
-    &:active {
-      color: $secondaty;
-      background-color: $white;
-      box-shadow: 0 -5px 12px 0 $accent-02 inset;
-    }
-
-    & svg > path {
-      transition: fill 1s;
-    }
-
-    &:hover .categories-popular__icon {
-      path {
+      .categories-popular__icon {
         fill: $accent;
       }
     }
 
-    &:active .categories-popular__icon {
-      path {
-        fill: $secondaty;
+    &:active {
+      color: $secondary;
+      background-color: $white;
+      box-shadow: 0 -5px 12px 0 $accent-02 inset;
+
+      .categories-popular__icon {
+        fill: $secondary;
       }
     }
 
@@ -232,6 +477,7 @@
     width: 44px;
     height: 44px;
     margin-right: 10px;
+    fill: $secondary;
   }
 
   &__items {
@@ -249,7 +495,7 @@
   }
 
   &__link {
-    color: $secondaty;
+    color: $secondary;
     @extend %link-underline;
 
     &:focus {
@@ -260,6 +506,87 @@
     &:hover,
     &:active {
       text-decoration: none;
+    }
+  }
+
+  @include mq($xl) {
+    &__items {
+      margin-right: -15px;
+    }
+
+    &__item {
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
+  @include mq($lg) {
+    &__items {
+      margin-right: -10px;
+    }
+
+    &__item {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    &__title {
+      margin-bottom: 35px;
+    }
+
+    &__btn {
+      font-size: 18px;
+    }
+  }
+
+  @include mq($md) {
+    &__title {
+      margin-bottom: 25px;
+    }
+
+    &__element:not(:last-child) {
+      margin-right: 10px;
+    }
+
+    &__btn {
+      font-size: 16px;
+      padding: 12px 24px;
+    }
+
+    &__icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  @include mq($sm) {
+    &__items {
+      margin-bottom: 20px;
+      margin-right: -5px;
+    }
+
+    &__item {
+      width: 48%;
+      margin-right: 5px;
+    }
+
+    &__list {
+      margin-bottom: 15px;
+    }
+
+    &__title {
+      margin-bottom: 15px;
+    }
+
+    &__btn {
+      font-size: 14px;
+      padding: 11px 15px;
+    }
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
     }
   }
 }
@@ -274,12 +601,16 @@
   background-color: $white;
   box-shadow: 0 0 0 1px $silver-200;
   border-radius: 5px;
+  transition: box-shadow 0.7s;
 
   &:hover {
     box-shadow: 0 0 0 1px $accent;
   }
 
   &__img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
     margin-bottom: 10px;
   }
 
@@ -298,14 +629,18 @@
     line-height: 140%;
     @extend %rubik-500;
     margin-bottom: 10px;
-    color: $secondaty;
+    color: $secondary;
   }
 
   &__btn {
     font-size: 14px;
     line-height: 130%;
-    padding: 7px 14px;
+    padding: 7px 16px;
     border-radius: 6px;
+  }
+
+  @include mq($sm) {
+    padding: 20px 10px;
   }
 }
 
@@ -318,16 +653,14 @@
   }
 
   &__img {
-    max-width: 440px;
-    width: 100%;
-    height: 585px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    width: 42.71%;
+    height: 0;
+    padding-top: 56.78%;
+    @extend %bc-img;
   }
 
   &__content {
-    max-width: 470px;
+    width: 45.63%;
 
     > *:not(:last-child) {
       margin-bottom: 30px;
@@ -338,12 +671,17 @@
     text-align: start;
   }
 
+  &__title {
+    @include line-clamp(4);
+  }
+
   &__item {
     font-size: 24px;
     line-height: 150%;
-    color: $secondaty;
+    color: $secondary;
     padding-left: 64px;
     background-repeat: no-repeat;
+    background-size: 34px 34px;
   }
 
   &__item:not(:last-child) {
@@ -356,6 +694,108 @@
     letter-spacing: 0.54px;
     padding: 12px 32px;
   }
+
+  @include mq($lg) {
+    &__content {
+      width: 55%;
+    }
+
+    &__inner {
+      padding: 0;
+    }
+
+    &__content {
+      > *:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__item {
+      font-size: 20px;
+      padding: 5px 0 5px 56px;
+      background-size: 34px 34px;
+    }
+
+    &__item:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
+  @include mq($md) {
+    &__content {
+      > *:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+
+    &__item {
+      font-size: 20px;
+      padding: 5px 0 5px 45px;
+      background-size: 34px 34px;
+    }
+
+    &__item:not(:last-child) {
+      margin-bottom: 5px;
+    }
+
+    &__title {
+      font-size: 24px;
+    }
+
+    &__text {
+      font-size: 18px;
+    }
+
+    &__item {
+      font-size: 16px;
+    }
+  }
+
+  @include mq($sm) {
+    &__inner {
+      padding: 25px 0;
+      position: relative;
+    }
+
+    &__img {
+      position: absolute;
+      opacity: 0.2;
+      height: 100%;
+      width: 100%;
+      background-position: top center;
+    }
+
+    &__content {
+      width: 100%;
+
+      > *:not(:last-child) {
+        margin-bottom: 30px;
+      }
+    }
+
+    & &__items {
+      margin-bottom: 20px;
+    }
+
+    &__item:not(:last-child) {
+      margin-bottom: 11px;
+    }
+
+    &__text {
+      font-size: 16px;
+      line-height: 150%;
+    }
+
+    &__item {
+      font-size: 18px;
+    }
+
+    &__link {
+      font-size: 14px;
+      letter-spacing: 0.42px;
+      padding: 12px 32px;
+    }
+  }
 }
 
 .restaurants {
@@ -365,9 +805,28 @@
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: auto;
     gap: 30px;
+  }
+
+  @include mq($lg) {
+    &__content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @include mq($md) {
+    &__content {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  @include mq($sm) {
+    & {
+      padding-bottom: 0;
+    }
   }
 }
 
@@ -375,9 +834,15 @@
   max-width: 370px;
   border-radius: 10px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.5s;
 
   &:hover {
     box-shadow: 0 3px 15px 0 $accent-05;
+  }
+
+  &__img {
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
   }
 
   &__content {
@@ -390,6 +855,8 @@
     font-size: 24px;
     line-height: 130%;
     padding: 15px 20px 20px;
+    @extend %rubik-400;
+    @include line-clamp(1);
   }
 
   &__time {
@@ -416,6 +883,7 @@
     width: 79px;
     height: 33px;
     border-radius: 20px;
+    transition: transform 0.5s;
 
     &::before {
       @include pseudo;
@@ -425,6 +893,7 @@
       left: 50%;
       transform: translate(-50%);
       top: 4px;
+      transition: transform 0.8s;
     }
 
     &:hover,
@@ -435,51 +904,89 @@
           saturate(1766%) hue-rotate(331deg) brightness(101%) contrast(102%);
       }
     }
+
+    &:hover {
+      &::before {
+        transform: translate(12px);
+      }
+    }
+
+    &:focus,
+    &:active {
+      &::before {
+        transform: translate(-12px);
+      }
+    }
+  }
+
+  @include mq($lg) {
+    margin: 0 auto;
   }
 }
 
 .testimonials {
   &__slider {
     position: relative;
+  }
 
-    .slick-arrow {
-      position: absolute;
-      font-size: 0;
-      // background-image: url("../images/sprite.svg#icon-prev-arrow");
-      background-image: url("../images/icons/icon-prev-arrow.svg");
-      @extend %bc-img;
-      width: 40px;
-      height: 40px;
-      bottom: 4px;
+  &__arrow {
+    width: 38px;
+    height: 38px;
+    border-radius: 34px;
+    border: 4px solid $gray;
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    padding: 4px 7px 4px 3px;
+    transition: background-color 0.5s, color 0.5s, fill 0.5s, border 0.5s;
 
-      &--active {
-        filter: brightness(0) saturate(100%) invert(70%) sepia(57%)
-          saturate(4261%) hue-rotate(327deg) brightness(104%) contrast(101%);
-      }
+    & svg {
+      width: 11px;
+      height: 19px;
+      fill: $gray;
+    }
 
-      &:hover {
-        filter: brightness(0) saturate(100%) invert(80%) sepia(16%)
-          saturate(1701%) hue-rotate(313deg) brightness(104%) contrast(101%);
+    &--prev {
+      transform: translateX(-111px);
+    }
+
+    &--next {
+      transform: translateX(-74px);
+      rotate: (180deg);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba($accent, 0.7);
+    }
+
+    &:hover {
+      background: $pink;
+      border-color: #ffae94;
+
+      svg {
+        fill: #ffae94;
       }
     }
 
-    // &:focus {
-    //   // box-shadow: 0 0 0 2px rgba(255, 104, 56, 0.7);
-    //   // border-radius: 50%;
-    // }
+    &:active {
+      background-color: #fff2ed;
+      box-shadow: none;
+      border: none;
 
-    // &:active {
-    //
-    // }
+      svg {
+        fill: #ff7a50;
+      }
+    }
   }
 
-  .slick-prev {
-    right: 56%;
-  }
+  .slick-disabled {
+    border: 3px solid $orange;
 
-  .slick-next {
-    rotate: (180deg);
-    left: 56%;
+    & svg {
+      fill: $orange;
+      filter: brightness(0) saturate(100%) invert(68%) sepia(19%)
+        saturate(6762%) hue-rotate(325deg) brightness(100%) contrast(104%);
+    }
   }
 
   &__title {
@@ -490,22 +997,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 130px 45px 90px;
+    padding: 0 90px 45px 90px;
   }
 
   &__img {
     width: 300px;
     height: 300px;
     border-radius: 50%;
+    margin-right: 40px;
+    object-fit: cover;
   }
 
   &__content {
-    @extend %flex-col-align;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__quote {
-    max-width: 570px;
+    max-width: 650px;
     width: 100%;
+    padding: 0 40px;
     @extend %rubik-italic;
     margin-bottom: 30px;
     position: relative;
@@ -513,71 +1025,144 @@
     &::after,
     &::before {
       @include pseudo;
-      // background-image: url("../images/sprite.svg#icon-quotes");
       background-image: url("../images/icons/icon-quotes.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
       width: 24px;
-      height: 19px;
+      height: 20px;
     }
 
     &::before {
-      left: -40px;
       top: 0;
+      left: 0;
     }
 
     &::after {
       transform: scaleX(-1);
-      right: -40px;
       bottom: 0;
+      right: 0;
     }
   }
 
   &__name {
     @extend %rubik-500;
     color: $accent;
-    margin-bottom: 15px;
+    padding-left: 40px;
   }
 
   &__desc {
     font-size: 14px;
     line-height: 130%;
+    color: $primary;
+    @extend %rubik-400;
+    display: block;
+    margin-top: 15px;
   }
-}
 
-.slick-dots {
-  display: flex;
-  justify-content: center;
+  @include mq($lg) {
+    &__inner {
+      padding: 0 20px 45px 20px;
+    }
 
-  li {
-    padding: 7px;
+    &__img {
+      width: 250px;
+      height: 250px;
+      margin-right: 20px;
+    }
 
-    button {
-      font-size: 0;
-      width: 15px;
-      height: 15px;
-      border-radius: 15px;
-      background-color: $gray;
-      transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+    &__quote {
+      margin-bottom: 20px;
+    }
 
-      &:focus {
-        background-color: $gray;
-        box-shadow: 0 0 0 2px $accent;
+    &__desc {
+      margin-top: 10px;
+    }
+  }
+
+  @include mq($md) {
+    &__inner {
+      flex-direction: column;
+    }
+
+    &__title {
+      margin-bottom: 30px;
+    }
+
+    &__img {
+      width: 200px;
+      height: 200px;
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+
+    &__quote {
+      margin-bottom: 20px;
+    }
+
+    &__desc {
+      margin-top: 10px;
+    }
+
+    &__arrow {
+      top: 82px;
+
+      &--prev {
+        transform: translateX(-200px);
       }
 
-      &:hover {
-        background: $pink;
-        box-shadow: 0 0 0 2px $orange-07;
+      &--next {
+        transform: translateX(-166px);
+      }
+    }
+  }
+
+  @include mq($sm) {
+    &__inner {
+      flex-direction: column;
+      padding: 0;
+    }
+
+    &__img {
+      width: 100px;
+      height: 100px;
+      margin-right: 0;
+      margin-bottom: 30px;
+    }
+
+    &__quote {
+      font-size: 14px;
+      line-height: 150%;
+      margin-bottom: 20px;
+
+      &::before {
+        top: -10px;
+        left: 6px;
       }
 
-      &:active {
-        background-color: #ffae94;
-        box-shadow: none;
+      &::after {
+        bottom: 12px;
+        right: 6px;
       }
     }
 
-    &.slick-active {
-      button {
-        background-color: $accent;
-        box-shadow: none;
+    &__name {
+      font-size: 16px;
+      line-height: 130%;
+    }
+
+    &__desc {
+      margin-top: 10px;
+    }
+
+    &__arrow {
+      top: 30px;
+
+      &--prev {
+        transform: translateX(-134px);
+      }
+
+      &--next {
+        transform: translateX(-100px);
       }
     }
   }
@@ -596,8 +1181,7 @@
   }
 
   &__content {
-    max-width: 538px;
-    width: 100%;
+    width: 46%;
   }
 
   &__text {
@@ -605,14 +1189,72 @@
   }
 
   &__icon {
-    margin-right: 30px;
+    height: 40px;
+    object-fit: cover;
+
+    &--app {
+      width: 120px;
+      margin-right: 27px;
+    }
+
+    &--google {
+      width: 135px;
+    }
+  }
+
+  &__img {
+    width: 48.71%;
+    height: 0;
+    padding-top: 32.47%;
+    @extend %bc-img;
+  }
+
+  @include mq($lg) {
+    &__title {
+      margin-bottom: 20px;
+    }
+
+    &__text {
+      margin-bottom: 20px;
+      font-size: 18px;
+      line-height: 130%;
+    }
+  }
+
+  @include mq($md) {
+    &__title {
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    &__text {
+      margin-bottom: 15px;
+      font-size: 16px;
+      line-height: 130%;
+    }
+  }
+
+  @include mq($sm) {
+    &__content {
+      width: 100%;
+    }
+
+    &__img {
+      display: none;
+    }
+
+    &__text {
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 150%;
+    }
   }
 }
 
 .footer-top {
   display: grid;
   grid-template-columns: 17% 49% 22%;
-  gap: 6%;
+  gap: 70px;
 
   &__subscribe {
     max-width: 200px;
@@ -620,7 +1262,23 @@
   }
 
   &__logo {
-    margin-bottom: 30px;
+    width: 200px;
+    height: 39px;
+    margin-bottom: 20px;
+  }
+
+  @include mq($xl) {
+    padding-bottom: 50px;
+  }
+
+  @include mq($lg) {
+    grid-template-columns: 45% 45%;
+    grid-template-rows: auto auto;
+  }
+
+  @include mq($sm) {
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
   }
 }
 
@@ -646,7 +1304,7 @@
 
     &:hover {
       &::placeholder {
-        color: $secondaty;
+        color: $secondary;
       }
     }
 
@@ -684,10 +1342,10 @@
 .footer-menu {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(4, 23px);
   grid-auto-flow: column;
-  gap: 20px 10px;
+  gap: 20px 70px;
   font-size: 18px;
   line-height: 130%;
   letter-spacing: 0.18px;
@@ -700,6 +1358,25 @@
     font-size: 18px;
     line-height: 130%;
     letter-spacing: 0.18px;
+    white-space: nowrap;
+  }
+
+  @include mq($xl) {
+    gap: 20px;
+  }
+
+  @include mq($lg) {
+    order: 1;
+    grid-column: 1/3;
+    grid-row: 2/3;
+  }
+
+  @include mq($sm) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(12, 23px);
+    grid-auto-flow: row;
+    grid-column: 1/2;
+    grid-row: 3/4;
   }
 }
 
@@ -710,8 +1387,9 @@
 .contacts {
   max-width: 258px;
   font-style: normal;
+  margin-bottom: 15px;
 
-  &__item {
+  &__item:not(:last-child) {
     margin-bottom: 15px;
   }
 
@@ -732,6 +1410,8 @@
 
     &--location::before {
       background-image: url("../images/icons/icon-location.svg");
+      top: 4px;
+      left: -2px;
     }
 
     &--tel::before {
@@ -770,13 +1450,48 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+
+    &:hover {
+      .social__icon {
+        fill: $white;
+      }
+    }
+
+    &:active {
+      .social__icon {
+        fill: $orange;
+      }
+    }
+  }
+
+  &__icon {
+    fill: $primary;
+
+    &--facebook {
+      width: 10px;
+      height: 21px;
+    }
+
+    &--twitter {
+      width: 21px;
+      height: 17px;
+    }
+
+    &--instagram {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
 
 .footer-bottom {
-  border-top: 1px solid $gray;
+  border-top: 1px solid rgba($gray, 0.2);
   text-align: center;
   font-size: 14px;
   line-height: 100%;
   padding: 30px;
+
+  @include mq($sm) {
+    padding: 20px;
+  }
 }

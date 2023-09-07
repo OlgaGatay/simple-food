@@ -1,7 +1,7 @@
-html,
-body {
-  height: 100%;
-}
+// html,
+// body {
+//   // height: 100%;
+// }
 
 body {
   font-size: 20px;
@@ -14,7 +14,20 @@ body {
 }
 
 .wrapper {
-  padding-top: 101px;
+  overflow-x: hidden;
+  padding-top: 164px;
+
+  @include mq($lg) {
+    padding-top: 144px;
+  }
+
+  @include mq($md) {
+    padding-top: 124px;
+  }
+
+  @include mq($sm) {
+    padding-top: 72px;
+  }
 }
 
 .sr-only {
@@ -30,6 +43,21 @@ body {
   overflow: hidden;
 }
 
+.lock {
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
 .main {
   flex-grow: 1;
 }
@@ -42,29 +70,39 @@ body {
 
 .section {
   padding: 60px 0;
+
+  @include mq($lg) {
+    padding: 45px 0;
+  }
+
+  @include mq($md) {
+    padding: 30px 0;
+  }
+
+  @include mq($sm) {
+    padding: 20px 0;
+  }
 }
 
 .title {
   margin: 0 auto;
   text-align: center;
-  color: $secondaty;
+  color: $secondary;
   @extend %rubik-500;
   font-size: 36px;
   line-height: 130%;
-}
 
-.logo {
-  border-radius: 5px;
-  transition: box-shadow 0.5s ease, opacity 0.1s;
-  &:focus {
-    box-shadow: 0 0 0 2px $shadow;
+  @include mq($lg) {
+    font-size: 30px;
   }
-  &:hover {
-    opacity: 0.7;
+
+  @include mq($md) {
+    font-size: 26px;
   }
-  &:active {
-    opacity: 0.5;
-    box-shadow: none;
+
+  @include mq($sm) {
+    font-size: 24px;
+    margin-bottom: 30px;
   }
 }
 
@@ -73,16 +111,19 @@ body {
   color: $white;
   border-radius: 6px;
   transition: box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s;
+
   &:focus {
     color: $accent;
     background-color: $orange-01;
     box-shadow: 0 0 0 2px $accent-07;
   }
+
   &:hover {
     color: $accent;
     background-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 0 2px $shadow, 0 5px 12px 0 $accent-02;
   }
+
   &:active {
     background-color: $orange-01;
     box-shadow: none;
@@ -92,12 +133,16 @@ body {
 .animation-link {
   border-radius: 5px;
   transition: box-shadow 0.5s ease, text-shadow 0.5s ease, color 0.5s;
+
   &:focus {
     box-shadow: 0 0 0 2px $shadow;
   }
+
   &:hover {
     color: $accent;
+    box-shadow: none;
   }
+
   &:active {
     color: $primary;
     text-shadow: 2px 2px 5px $primary-05;
@@ -107,24 +152,59 @@ body {
 
 .animation-icon {
   transition: box-shadow 0.5s ease, color 0.5s, background-color 0.5s ease;
+
   &:focus {
     background: $orange-01;
     box-shadow: 0 0 0 2px $shadow;
-    path {
-      fill: black;
-    }
   }
+
   &:hover {
     background-color: $orange;
-    path {
-      fill: $white;
-    }
+    box-shadow: none;
   }
+
   &:active {
     background-color: $pink;
     box-shadow: none;
-    path {
-      fill: $accent;
+  }
+}
+
+.slick-dots {
+  display: flex;
+  justify-content: center;
+
+  li {
+    padding: 7px;
+
+    button {
+      font-size: 0;
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      background-color: $gray;
+      transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+
+      &:focus {
+        background-color: $gray;
+        box-shadow: 0 0 0 2px $accent;
+      }
+
+      &:hover {
+        background: $pink;
+        box-shadow: 0 0 0 2px $orange-07;
+      }
+
+      &:active {
+        background-color: #ffae94;
+        box-shadow: none;
+      }
+    }
+
+    &.slick-active {
+      button {
+        background-color: $accent;
+        box-shadow: none;
+      }
     }
   }
 }
